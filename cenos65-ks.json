@@ -1,0 +1,31 @@
+{
+    "builders": [
+    {   
+        "vm_name": "centos65",
+        "type": "virtualbox-iso",
+        "guest_os_type": "RedHat_64",
+        "iso_url": "CentOS-6.5-x86_64-minimal.iso",
+        "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
+        "iso_checksum_type": "md5",
+        "disk_size": "10240",
+        "floppy_files": "ks.cfg",
+        "boot_wait": "3s",
+        "boot_command": ["<tab> ks=floppy<enter>"],
+        "ssh_username": "root",
+        "ssh_password": "root",
+        "ssh_wait_timeout": "1h",
+        "shutdown_command": "echo 'packer' | sudo -S shutdown -P now"
+    }],
+
+    "provisioners": [
+    {
+        "type": "shell",
+        "script": "provision.sh"
+    }],
+
+    "post-processors": [
+    {
+        "type": "vagrant",
+        "only": ["virtualbox-iso"]
+    }]
+}
